@@ -1,4 +1,4 @@
-from LearningOpenCV import opencv_logo
+from OpenCVGUI import opencv_logo
 import cv2
 
 
