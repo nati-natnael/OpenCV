@@ -30,6 +30,6 @@ img2_fg = cv2.bitwise_and(logo, logo, mask = mask)
 dst = cv2.add(img1_bg, img2_fg)
 img[0:rows, 0:cols] = dst
 
-cv2.imshow('image', img)
+cv2.imshow('image', img2_fg)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
