@@ -17,17 +17,17 @@ rows, cols, channels = img.shape
 # M = cv2.getAffineTransform(pts1, pts2)
 # res = cv2.warpAffine(img, M, (cols, rows))
 
-pts1 = np.float32([[56, 65], [368, 52], [28, 387], [389, 390]])
-pts2 = np.float32([[0,0], [300, 0],[0, 300], [300, 300]])
+pts1 = np.float32([[36, 45], [262, 37], [20, 273], [275, 276]])
+pts2 = np.float32([[0, 0], [cols, 0], [0, rows], [cols, rows]])
 
-cv2.line(img, (36, 45), (262, 37), (0, 255, 0), 2)
-cv2.line(img, (36, 45), (20, 273), (0, 255, 0), 2)
-cv2.line(img, (275, 276), (20, 273), (0, 255, 0), 2)
-cv2.line(img, (275, 276), (262, 37), (0, 255, 0), 2)
+# cv2.line(img, (36, 45), (262, 37), (0, 255, 0), 2)
+# cv2.line(img, (36, 45), (20, 273), (0, 255, 0), 2)
+# cv2.line(img, (275, 276), (20, 273), (0, 255, 0), 2)
+# cv2.line(img, (275, 276), (262, 37), (0, 255, 0), 2)
 
-# M = cv2.getPerspectiveTransform(pts1, pts2)
-# res = cv2.warpPerspective(img, M, (300, 300))
+M = cv2.getPerspectiveTransform(pts1, pts2)
+res = cv2.warpPerspective(img, M, (cols, rows))
 
-cv2.imshow('image', img)
+cv2.imshow('image', res)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
