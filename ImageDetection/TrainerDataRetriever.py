@@ -138,6 +138,7 @@ class TrainerDataRetriever(object):
         :param param:
         :return:
         """
+
         if event == cv2.EVENT_LBUTTONDOWN:
             self.clicked = True
             self.start = (x, y)

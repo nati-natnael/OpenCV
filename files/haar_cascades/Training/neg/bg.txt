@@ -1,0 +1,7 @@
+files\haar_cascades\images\img2.jpg
+files\haar_cascades\images\img3.jpg
+files\haar_cascades\images\img4.jpg
+files\haar_cascades\images\img5.jpg
+files\haar_cascades\images\img6.jpg
+files\haar_cascades\images\img8.jpg
+files\haar_cascades\images\img9.jpg
