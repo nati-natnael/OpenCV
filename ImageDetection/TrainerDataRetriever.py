@@ -173,7 +173,9 @@ class TrainerDataRetriever(object):
 
         for img in os.listdir(imgs_path):
             path = imgs_path + img
-            image = cv2.imread(path)
+            original_image = cv2.imread(path)
+
+            image = original_image.copy()
 
             cv2.imshow('image', image)
             cv2.setMouseCallback('image', self.mouse_clicked)
@@ -183,6 +185,8 @@ class TrainerDataRetriever(object):
                 key = cv2.waitKey(100)
 
                 if self.start is not None:
+                    # Reset image before drawing another square
+                    image = original_image.copy()
                     cv2.rectangle(image, self.start, self.dimension, crop_color)
                     cv2.imshow('image', image)
 
