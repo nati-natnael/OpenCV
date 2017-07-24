@@ -1,4 +1,4 @@
-SET IMG_PATH="../haar_cascades/Training/pos/imgs/img4.jpg"
+SET IMG_PATH="../haar_cascades/Training/pos/imgs/img2.jpg"
 SET BG_PATH="../haar_cascades/Training/neg/bg.txt"
 SET INFO_PATH="../haar_cascades/Training/training_samples/info.lst"
 
@@ -14,5 +14,3 @@ opencv_createsamples^
 	-maxyangle %MAX_ANGLE%^
 	-maxzangle %MAX_ANGLE%^
 	-num %NUM%
-	
-pause
