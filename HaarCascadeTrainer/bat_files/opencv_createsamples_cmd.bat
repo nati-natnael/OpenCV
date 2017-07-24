@@ -14,3 +14,5 @@ opencv_createsamples^
 	-maxyangle %MAX_ANGLE%^
 	-maxzangle %MAX_ANGLE%^
 	-num %NUM%
+
+pause

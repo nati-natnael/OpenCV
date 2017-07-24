@@ -13,6 +13,7 @@ from utils import Logger
 # INFO - 20
 # DEBUG - 10
 logger = Logger('log\Trainer')
+logger.set_level(20)
 
 
 class DataRetriever(object):
@@ -179,12 +180,13 @@ class DataRetriever(object):
             logger.debug("\tStart: (x, y) => " + str(self.start))
             logger.debug("\tDimension: (x, y) => " + str(self.dimension))
 
-    def positive(self, descriptor_path, pos_images_path):
+    def positive(self, descriptor_path, pos_images_path, rel_dir):
         """
         Purpose: Help create a descriptor file for positive images
 
         :param descriptor_path: file path to write description of images
         :param pos_images_path: path for positive image directory
+        :param rel_dir: relative path of images to descriptor file
         :return: None
         """
 
@@ -203,6 +205,7 @@ class DataRetriever(object):
 
         for img in os.listdir(pos_images_path):
             path = pos_images_path + img
+            rel_path = rel_dir + img
 
             try:
                 original_image = cv2.imread(path)
@@ -231,7 +234,7 @@ class DataRetriever(object):
                     if crop_counts == 0:
                         crop_counts = 1
 
-                    f.write(path + " " + str(crop_counts))
+                    f.write(rel_path + " " + str(crop_counts))
                     # If no cropped is saved, assume the whole image
                     if len(crop_dimensions) is 0:
                         x, y = 0, 0
