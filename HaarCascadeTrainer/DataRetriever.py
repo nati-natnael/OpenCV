@@ -139,20 +139,23 @@ class DataRetriever(object):
 
         logger.info("Making Neg descriptor file: " + descriptor_path)
 
-        f = open(descriptor_path, 'w+')
-        logger.debug("File opened. Path: %s" % descriptor_path)
+        try:
+            f = open(descriptor_path, 'w+')
+            logger.debug("File opened. Path: %s" % descriptor_path)
+        except OSError as e:
+            logger.error("Error Opening file: " + str(e))
+            sys.exit(1)
 
         img_lst = os.listdir(imgs_path)
         for img in img_lst:
-            logger.debug('Writing file: ' + imgs_path + img)
-            path = rel_path + img + '\n'
-            f.write(path)
+            logger.info('Writing file: ' + imgs_path + img)
+            f.write(rel_path + img + '\n')
 
         f.close()
 
     def mouse_event(self, event, x, y, flags, param):
         """
-
+        Mouse Event
         :param event:
         :param x:
         :param y:
@@ -188,23 +191,29 @@ class DataRetriever(object):
         """
         help crop positive images
 
-        :param pos_images_path:
+        :param pos_images_path: raw images found here
+        :param save_to: save cropped images here
         :return:
         """
 
         logger.info("Cropping Images")
 
+        wait_time = 100
+
+        # Valid Keys
         save_key = ord('s')
         next_key = ord(' ')
         exit_key = 27
+
+        # Rect colors
         crop_color = (0, 0, 255)
         crop_save_color = (0, 255, 0)
 
         # selected crops per image
         crop_counts = 0
 
-        lst = os.listdir(pos_images_path)
-        for img in lst:
+        pos_img_lst = os.listdir(pos_images_path)
+        for img in pos_img_lst:
 
             try:
                 original_image = cv2.imread(pos_images_path + img)
@@ -216,9 +225,10 @@ class DataRetriever(object):
             cv2.imshow('image', image)
             cv2.setMouseCallback('image', self.mouse_event)
 
+            # Event loop
             while True:
                 cv2.imshow('image', image)
-                key = cv2.waitKey(100)
+                key = cv2.waitKey(wait_time)
 
                 # Draw crop square
                 if self.start is not None:
@@ -227,7 +237,7 @@ class DataRetriever(object):
                     cv2.rectangle(image, self.start, self.dimension, crop_color)
                     cv2.imshow('image', image)
 
-                # Keyboard input options
+                # GO to next image
                 if key == next_key:
                     self.start, self.dimension = None, None
                     crop_counts = 0
@@ -235,22 +245,31 @@ class DataRetriever(object):
                     logger.info("Next image")
                     break
 
+                # Save the selection
                 elif key == save_key:
-                    top_x, top_y = self.start
-                    bottom_x, bottom_y = self.dimension
+                    if self.start is not None:
+                        top_x, top_y = self.start
+                        bottom_x, bottom_y = self.dimension
 
-                    save_img = original_image[top_y:bottom_y, top_x:bottom_x]
-                    save_path = save_to + img.replace('.', '_' + str(crop_counts) + '.')
+                        save_img = original_image[top_y:bottom_y, top_x:bottom_x]
+                        save_path = save_to + img.replace('.', '_' + str(crop_counts) + '.')
 
-                    cv2.imwrite(save_path, save_img)
+                        cv2.imwrite(save_path, save_img)
 
-                    cv2.rectangle(image, self.start, self.dimension, crop_save_color)
-                    self.start, self.dimension = None, None
+                        # Changed rect color to green indicating save action
+                        cv2.rectangle(image, self.start, self.dimension, crop_save_color)
+                        self.start, self.dimension = None, None
 
-                    crop_counts += 1
+                        crop_counts += 1
 
+                        logger.debug("Image saved: " + save_path)
+                    else:
+                        logger.warning("Please select an area to save")
+
+                # Abort
                 elif key == exit_key:
                     logger.info("Exiting")
                     sys.exit(0)
 
         cv2.destroyAllWindows()
+        logger.info("Done cropping")
