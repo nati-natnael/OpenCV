@@ -100,10 +100,13 @@ class DataRetriever(object):
 
         logger.debug("Removing bad image from %s" % from_dir)
         # Images to be tested
-        for current in os.listdir(from_dir):
+        test_img_lst = os.listdir(from_dir)
+        for current in test_img_lst:
             current_path = from_dir + '\\' + str(current)
+
             # Known Bad images
-            for bad_img in os.listdir(bad_imgs_dir):
+            bad_img_lst = os.listdir(bad_imgs_dir)
+            for bad_img in bad_img_lst:
                 try:
                     bad_img_path = bad_imgs_dir + '\\' + str(bad_img)
                     cur = cv2.imread(current_path)
@@ -139,7 +142,8 @@ class DataRetriever(object):
         f = open(descriptor_path, 'w+')
         logger.debug("File opened. Path: %s" % descriptor_path)
 
-        for img in os.listdir(imgs_path):
+        img_lst = os.listdir(imgs_path)
+        for img in img_lst:
             logger.debug('Writing file: ' + imgs_path + img)
             path = rel_path + img + '\n'
             f.write(path)
@@ -180,7 +184,7 @@ class DataRetriever(object):
             logger.debug("\tStart: (x, y) => " + str(self.start))
             logger.debug("\tDimension: (x, y) => " + str(self.dimension))
 
-    def positive(self, pos_images_path, save_to):
+    def img_crop_helper(self, pos_images_path, save_to):
         """
         help crop positive images
 
@@ -193,12 +197,14 @@ class DataRetriever(object):
         save_key = ord('s')
         next_key = ord(' ')
         exit_key = 27
-        crop_color = (0, 255, 0)
+        crop_color = (0, 0, 255)
+        crop_save_color = (0, 255, 0)
 
         # selected crops per image
         crop_counts = 0
 
-        for img in os.listdir(pos_images_path):
+        lst = os.listdir(pos_images_path)
+        for img in lst:
 
             try:
                 original_image = cv2.imread(pos_images_path + img)
@@ -237,6 +243,9 @@ class DataRetriever(object):
                     save_path = save_to + img.replace('.', '_' + str(crop_counts) + '.')
 
                     cv2.imwrite(save_path, save_img)
+
+                    cv2.rectangle(image, self.start, self.dimension, crop_save_color)
+                    self.start, self.dimension = None, None
 
                     crop_counts += 1
 
