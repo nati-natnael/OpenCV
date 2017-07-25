@@ -88,7 +88,8 @@ class DataRetriever(object):
         except IOError as io_e:
             logger.error(str(io_e))
 
-    def remove_bad_imgs(self, from_dir, bad_imgs_dir):
+    @staticmethod
+    def remove_bad_imgs(from_dir, bad_imgs_dir):
         """
         Removing Bad images in directory defined 'from_dir' that are the
         equal as images in directory 'bad_imgs_dir'.
@@ -102,13 +103,13 @@ class DataRetriever(object):
         # Images to be tested
         test_img_lst = os.listdir(from_dir)
         for current in test_img_lst:
-            current_path = from_dir + '\\' + str(current)
+            current_path = from_dir + '/' + str(current)
 
             # Known Bad images
             bad_img_lst = os.listdir(bad_imgs_dir)
             for bad_img in bad_img_lst:
                 try:
-                    bad_img_path = bad_imgs_dir + '\\' + str(bad_img)
+                    bad_img_path = bad_imgs_dir + '/' + str(bad_img)
                     cur = cv2.imread(current_path)
                     bad = cv2.imread(bad_img_path)
 
@@ -127,9 +128,10 @@ class DataRetriever(object):
                 except Exception as e:
                     logger.error("Error: " + str(e))
 
-    def negative(self, descriptor_path, imgs_path, rel_path):
+    @staticmethod
+    def make_descriptor_file(descriptor_path, imgs_path, rel_path):
         """
-        Make a descriptor txt file for haarcascade_xml sets
+        Make a descriptor txt file for
 
         :param descriptor_path: path to descriptor file
         :param imgs_path: path to neg images
@@ -137,7 +139,7 @@ class DataRetriever(object):
         :return:
         """
 
-        logger.info("Making Neg descriptor file: " + descriptor_path)
+        logger.info("Making Neg descriptor file: %s" % descriptor_path)
 
         try:
             f = open(descriptor_path, 'w+')
@@ -146,7 +148,12 @@ class DataRetriever(object):
             logger.error("Error Opening file: " + str(e))
             sys.exit(1)
 
-        img_lst = os.listdir(imgs_path)
+        try:
+            img_lst = os.listdir(imgs_path)
+        except OSError as e:
+            logger.error("Error atempting to list files in dir: %s - %s" % (imgs_path, str(e)))
+            sys.exit(1)
+
         for img in img_lst:
             logger.info('Writing file: ' + imgs_path + img)
             f.write(rel_path + img + '\n')
@@ -187,36 +194,35 @@ class DataRetriever(object):
             logger.debug("\tStart: (x, y) => " + str(self.start))
             logger.debug("\tDimension: (x, y) => " + str(self.dimension))
 
-    def img_crop_helper(self, pos_images_path, save_to):
+    def img_crop_helper(self, images_path, save_to):
         """
-        help crop positive images
+        Help crop images
 
-        :param pos_images_path: raw images found here
+        :param images_path: raw images found here
         :param save_to: save cropped images here
         :return:
         """
 
         logger.info("Cropping Images")
 
-        wait_time = 100
+        WAIT_TIME = 100
 
         # Valid Keys
-        save_key = ord('s')
-        next_key = ord(' ')
-        exit_key = 27
+        SAVE_KEY = ord('s')
+        NEXT_KEY = ord(' ')
+        EXIT_KEY = 27
 
         # Rect colors
-        crop_color = (0, 0, 255)
-        crop_save_color = (0, 255, 0)
+        CROP_COLOR = (0, 0, 255)
+        CROP_SAVED_COLOR = (0, 255, 0)
 
         # selected crops per image
-        crop_counts = 0
+        CROP_COUNT = 0
 
-        pos_img_lst = os.listdir(pos_images_path)
-        for img in pos_img_lst:
-
+        img_lst = os.listdir(images_path)
+        for img in img_lst:
             try:
-                original_image = cv2.imread(pos_images_path + img)
+                original_image = cv2.imread(images_path + img)
                 image = original_image.copy()
             except Exception as e:
                 logger.error(str(e))
@@ -228,46 +234,46 @@ class DataRetriever(object):
             # Event loop
             while True:
                 cv2.imshow('image', image)
-                key = cv2.waitKey(wait_time)
+                key = cv2.waitKey(WAIT_TIME)
 
                 # Draw crop square
                 if self.start is not None:
                     # Reset image before drawing another square
                     image = original_image.copy()
-                    cv2.rectangle(image, self.start, self.dimension, crop_color)
+                    cv2.rectangle(image, self.start, self.dimension, CROP_COLOR)
                     cv2.imshow('image', image)
 
                 # GO to next image
-                if key == next_key:
+                if key == NEXT_KEY:
                     self.start, self.dimension = None, None
-                    crop_counts = 0
+                    CROP_COUNT = 0
 
                     logger.info("Next image")
                     break
 
                 # Save the selection
-                elif key == save_key:
+                elif key == SAVE_KEY:
                     if self.start is not None:
                         top_x, top_y = self.start
                         bottom_x, bottom_y = self.dimension
 
                         save_img = original_image[top_y:bottom_y, top_x:bottom_x]
-                        save_path = save_to + img.replace('.', '_' + str(crop_counts) + '.')
+                        save_path = save_to + img.replace('.', '_' + str(CROP_COUNT) + '.')
 
                         cv2.imwrite(save_path, save_img)
 
                         # Changed rect color to green indicating save action
-                        cv2.rectangle(image, self.start, self.dimension, crop_save_color)
+                        cv2.rectangle(image, self.start, self.dimension, CROP_SAVED_COLOR)
                         self.start, self.dimension = None, None
 
-                        crop_counts += 1
+                        CROP_COUNT += 1
 
                         logger.debug("Image saved: " + save_path)
                     else:
                         logger.warning("Please select an area to save")
 
                 # Abort
-                elif key == exit_key:
+                elif key == EXIT_KEY:
                     logger.info("Exiting")
                     sys.exit(0)
 
