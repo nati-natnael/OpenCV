@@ -180,17 +180,15 @@ class DataRetriever(object):
             logger.debug("\tStart: (x, y) => " + str(self.start))
             logger.debug("\tDimension: (x, y) => " + str(self.dimension))
 
-    def positive(self, descriptor_path, pos_images_path, rel_dir):
+    def positive(self, pos_images_path, save_to):
         """
-        Purpose: Help create a descriptor file for positive images
+        help crop positive images
 
-        :param descriptor_path: file path to write description of images
-        :param pos_images_path: path for positive image directory
-        :param rel_dir: relative path of images to descriptor file
-        :return: None
+        :param pos_images_path:
+        :return:
         """
 
-        logger.info("Making Pos descriptor file: " + descriptor_path)
+        logger.info("Cropping Images")
 
         save_key = ord('s')
         next_key = ord(' ')
@@ -198,17 +196,12 @@ class DataRetriever(object):
         crop_color = (0, 255, 0)
 
         # selected crops per image
-        crop_dimensions = []
         crop_counts = 0
 
-        f = open(descriptor_path, 'w+')
-
         for img in os.listdir(pos_images_path):
-            path = pos_images_path + img
-            rel_path = rel_dir + img
 
             try:
-                original_image = cv2.imread(path)
+                original_image = cv2.imread(pos_images_path + img)
                 image = original_image.copy()
             except Exception as e:
                 logger.error(str(e))
@@ -230,56 +223,25 @@ class DataRetriever(object):
 
                 # Keyboard input options
                 if key == next_key:
-                    # If image not cropped, assumes the whole image
-                    if crop_counts == 0:
-                        crop_counts = 1
-
-                    f.write(rel_path + " " + str(crop_counts))
-                    # If no cropped is saved, assume the whole image
-                    if len(crop_dimensions) is 0:
-                        x, y = 0, 0
-                        w_x, h_y = original_image.shape[:2:]
-                        img_dimension = "%d %d %d %d" % (x, y, w_x, h_y)
-                        f.write(" " + img_dimension)
-                    else:
-                        for img_dimension in crop_dimensions:
-                            f.write(" " + img_dimension)
-
-                    f.write("\n")
-
                     self.start, self.dimension = None, None
-                    crop_dimensions = []
                     crop_counts = 0
 
                     logger.info("Next image")
                     break
 
                 elif key == save_key:
-                    # Check if there is crop selection
-                    if self.dimension is not None:
-                        top_left_x, top_left_y = self.start
-                        bottom_right_x, bottom_right_y = self.dimension
-                    else:
-                        top_left_x, top_left_y = 0, 0
-                        bottom_right_x, bottom_right_y = original_image.shape[:2:]
+                    top_x, top_y = self.start
+                    bottom_x, bottom_y = self.dimension
 
-                    string = "%d %d %d %d" % (top_left_x, top_left_y, bottom_right_x, bottom_right_y)
+                    save_img = original_image[top_y:bottom_y, top_x:bottom_x]
+                    save_path = save_to + img.replace('.', '_' + str(crop_counts) + '.')
 
-                    # Don's allow duplicates [most likely whole image saved multiple times
-                    if string not in crop_dimensions:
-                        logger.info("Saving to file: " + path)
-                        crop_dimensions.append(string)
-                        crop_counts += 1
-                    else:
-                        logger.debug("Duplicates not allowed")
+                    cv2.imwrite(save_path, save_img)
 
-                    # Reset Dimensions
-                    self.start, self.dimension = None, None
+                    crop_counts += 1
 
                 elif key == exit_key:
                     logger.info("Exiting")
-                    f.close()
                     sys.exit(0)
 
         cv2.destroyAllWindows()
-        f.close()
