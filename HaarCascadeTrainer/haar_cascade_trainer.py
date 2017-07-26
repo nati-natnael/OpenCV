@@ -3,8 +3,7 @@ import sys
 import cv2
 import numpy as np
 
-from urllib import urlopen
-from urllib import urlretrieve
+from urllib import urlopen, urlretrieve
 from utils import Logger
 
 # CRITICAL - 50
@@ -12,11 +11,47 @@ from utils import Logger
 # WARNING - 30
 # INFO - 20
 # DEBUG - 10
-logger = Logger('log\Trainer')
-logger.set_level(20)
+logger = Logger('log\sample_creator')
+logger.set_level(10)
+
+
+def _create_pos_images(img_dir, bg_path, info_path, *options):
+    """
+    options Available:
+        -num <number_of_samples>
+        -bgcolor <background_color>
+        -bgthresh <background_color_threshold>
+        -inv
+        -randinv
+        -maxidev <max_intensity_deviation>
+        -maxxangle <max_x_rotation_angle>
+        -maxyangle <max_y_rotation_angle>
+        -maxzangle <max_z_rotation_angle>
+        -show
+
+    :param img_dir:j
+    :param bg_path:
+    :param info_path:
+    :param options:
+    :return:
+    """
+    cmd = 'opencv_createsamples ' + \
+          '-img ' + img_dir + ' ' + \
+          '-bg ' + bg_path + ' ' + \
+          '-info ' + info_path
+
+    for option in options:
+        cmd = cmd + ' ' + option
+
+    logger.debug("Executing Command: " + cmd)
+    exit_status = os.system(cmd)
+    return exit_status is 0
 
 
 class DataRetriever(object):
+    """
+
+    """
     def __init__(self):
         self.clicked = False
         self.start = None
@@ -33,10 +68,10 @@ class DataRetriever(object):
         dir: download destination directory
         file_type: file type being downloaded
         file_pos: file name start position
-        :return:
-        """
 
-        logger.info("Pulling Files from link")
+        :param args:
+        :return: how many pulled
+        """
 
         if len(args) < 6:
             logger.error("Illegal Argument Count")
@@ -53,6 +88,9 @@ class DataRetriever(object):
 
         how_many = float("inf")
 
+        logger.info("Pulling Files from link: %s" % links)
+        count = 0
+
         # Parse Args
         if len(args) == 7:
             how_many = int(args[6])
@@ -60,7 +98,6 @@ class DataRetriever(object):
         try:
             r = urlopen(links).read()
 
-            count = 1
             file_num = file_pos
             links = r.split('\n')
             for link in links:
@@ -88,11 +125,14 @@ class DataRetriever(object):
         except IOError as io_e:
             logger.error(str(io_e))
 
+        logger.info("Done pulling files")
+        return count
+
     @staticmethod
     def remove_bad_imgs(from_dir, bad_imgs_dir):
         """
-        Removing Bad images in directory defined 'from_dir' that are the
-        equal as images in directory 'bad_imgs_dir'.
+        Removing Bad images from directory defined 'from_dir' that are
+        equal to bad images included in directory 'bad_imgs_dir'.
 
         :param from_dir: Directory containing images to be cleaned
         :param bad_imgs_dir: Directory containing sample of bad images
@@ -128,41 +168,52 @@ class DataRetriever(object):
                 except Exception as e:
                     logger.error("Error: " + str(e))
 
+        logger.info("Done removing bad images")
+
     @staticmethod
-    def make_descriptor_file(descriptor_path, imgs_path, rel_path):
+    def make_descriptor_file(descriptor_path, imgs_dir, rel_path):
         """
-        Make a descriptor txt file for
+        Make a descriptor txt file. Descriptor file will contain
+        paths of images in imgs_dir directory relative to the descriptor
+        file. the path relation from descriptor to images is described by
+        rel_path. In other words, rel_path is path from descriptor to
+        imgs_dir.
 
         :param descriptor_path: path to descriptor file
-        :param imgs_path: path to neg images
+        :param imgs_dir: path to neg images
         :param rel_path: relative path of images from descriptor path
-        :return:
+        :return: number of images
         """
 
-        logger.info("Making Neg descriptor file: %s" % descriptor_path)
+        logger.info("Making descriptor file: %s" % descriptor_path)
+
+        counter = -1
 
         try:
             f = open(descriptor_path, 'w+')
             logger.debug("File opened. Path: %s" % descriptor_path)
         except OSError as e:
             logger.error("Error Opening file: " + str(e))
-            sys.exit(1)
+            return counter
 
         try:
-            img_lst = os.listdir(imgs_path)
+            img_lst = os.listdir(imgs_dir)
         except OSError as e:
-            logger.error("Error atempting to list files in dir: %s - %s" % (imgs_path, str(e)))
-            sys.exit(1)
+            logger.error("Error atempting to list files in dir: %s - %s" % (imgs_dir, str(e)))
+            return counter
 
         for img in img_lst:
-            logger.info('Writing file: ' + imgs_path + img)
+            logger.info('Writing file: ' + imgs_dir + img)
             f.write(rel_path + img + '\n')
+            counter += 1
 
         f.close()
+        return counter
 
-    def mouse_event(self, event, x, y, flags, param):
+    def __mouse_event(self, event, x, y, flags, param):
         """
         Mouse Event
+
         :param event:
         :param x:
         :param y:
@@ -205,19 +256,19 @@ class DataRetriever(object):
 
         logger.info("Cropping Images")
 
-        WAIT_TIME = 100
+        wait_time = 100
 
         # Valid Keys
-        SAVE_KEY = ord('s')
-        NEXT_KEY = ord(' ')
-        EXIT_KEY = 27
+        save_key = ord('s')
+        next_key = ord(' ')
+        exit_key = 27
 
         # Rect colors
-        CROP_COLOR = (0, 0, 255)
-        CROP_SAVED_COLOR = (0, 255, 0)
+        crop_color = (0, 0, 255)
+        crop_saved_color = (0, 255, 0)
 
         # selected crops per image
-        CROP_COUNT = 0
+        crop_count = 0
 
         img_lst = os.listdir(images_path)
         for img in img_lst:
@@ -229,53 +280,198 @@ class DataRetriever(object):
                 break
 
             cv2.imshow('image', image)
-            cv2.setMouseCallback('image', self.mouse_event)
+            cv2.setMouseCallback('image', self.__mouse_event)
 
             # Event loop
             while True:
                 cv2.imshow('image', image)
-                key = cv2.waitKey(WAIT_TIME)
+                key = cv2.waitKey(wait_time)
 
                 # Draw crop square
                 if self.start is not None:
                     # Reset image before drawing another square
                     image = original_image.copy()
-                    cv2.rectangle(image, self.start, self.dimension, CROP_COLOR)
+                    cv2.rectangle(image, self.start, self.dimension, crop_color)
                     cv2.imshow('image', image)
 
                 # GO to next image
-                if key == NEXT_KEY:
+                if key == next_key:
                     self.start, self.dimension = None, None
-                    CROP_COUNT = 0
+                    crop_count = 0
 
                     logger.info("Next image")
                     break
 
                 # Save the selection
-                elif key == SAVE_KEY:
+                elif key == save_key:
                     if self.start is not None:
                         top_x, top_y = self.start
                         bottom_x, bottom_y = self.dimension
 
                         save_img = original_image[top_y:bottom_y, top_x:bottom_x]
-                        save_path = save_to + img.replace('.', '_' + str(CROP_COUNT) + '.')
+                        save_path = save_to + img.replace('.', '_' + str(crop_count) + '.')
 
                         cv2.imwrite(save_path, save_img)
 
                         # Changed rect color to green indicating save action
-                        cv2.rectangle(image, self.start, self.dimension, CROP_SAVED_COLOR)
+                        cv2.rectangle(image, self.start, self.dimension, crop_saved_color)
                         self.start, self.dimension = None, None
 
-                        CROP_COUNT += 1
+                        crop_count += 1
 
                         logger.debug("Image saved: " + save_path)
                     else:
                         logger.warning("Please select an area to save")
 
                 # Abort
-                elif key == EXIT_KEY:
+                elif key == exit_key:
                     logger.info("Exiting")
                     sys.exit(0)
 
         cv2.destroyAllWindows()
         logger.info("Done cropping")
+
+
+class PositiveSamples(object):
+    """
+
+    """
+
+    def __init__(self, bg_path, info_dir):
+        """
+
+        :param bg_path:
+        :param info_dir:
+        """
+        self.bg_path = bg_path
+        self.top_info_dir = info_dir
+
+    def create_pos_images(self, imgs_dir,  *options):
+        """
+
+        :param imgs_dir:
+        :param options:
+        :return:
+        """
+
+        logger.info("Creating positive samples ...")
+        info_count = 0
+
+        try:
+            img_lst = os.listdir(imgs_dir)
+        except Exception as e:
+            logger.error(str(e))
+            return False
+
+        for img in img_lst:
+            img_path = imgs_dir + img
+            logger.debug(img_path)
+
+            # make dir for every pos image
+            try:
+                os.mkdir(self.top_info_dir + '/info_' + str(info_count))
+            except OSError:
+                logger.debug("Directory already exists")
+
+            info_path = self.top_info_dir + '/info_' + str(info_count) + '/info_' + str(info_count) + '.lst'
+            logger.debug("Info Path: " + info_path)
+
+            if not _create_pos_images(img_path, self.bg_path, info_path, *options):
+                logger.error("Command Failed for Image: " + img_path)
+                return False
+
+            info_count += 1
+
+        logger.info("Done creating positive image samples")
+        return True
+
+    def merge_samples(self):
+        """
+        merge info.lst files in to one.
+        <p>
+        Note: it will only work if create_pos_samples()
+        function is used to create the data sets
+        and their own info directory.
+        :return merged_info file path
+        """
+        logger.info("Running Merger ...")
+        merged_info = 'merged_info.lst'
+        merged_info_path = self.top_info_dir + merged_info
+
+        line_counter = -1
+
+        # remove old merge file if it exists
+        try:
+            os.remove(self.top_info_dir + merged_info)
+            logger.debug("Old merge file deleted")
+        except OSError:
+            logger.debug("Old merge file not found. Delete not needed :)")
+
+        try:
+            info_dir_list = os.listdir(self.top_info_dir)
+        except OSError as os_e:
+            logger.error(str(os_e))
+            return [line_counter, merged_info_path]
+
+        try:
+            f = open(merged_info_path, 'w+')
+        except IOError as e:
+            logger.error(str(e))
+            return [line_counter, merged_info_path]
+
+        for info_dir in info_dir_list:
+            logger.info("Reading: " + info_dir + "...")
+
+            # Only one info file per info directory
+            info_path = self.top_info_dir + info_dir + '/' + info_dir + '.lst'
+            logger.debug("Info Path: " + info_path)
+
+            try:
+                info_f = open(info_path, 'r')
+                info_r = info_f.read()
+            except IOError as e:
+                logger.error(str(e))
+                logger.debug("Failed to open or read: " + info_path)
+                break
+
+            lines = info_r.split('\n')
+            logger.debug("Split lines: " + str(lines))
+
+            for line in lines:
+                if line is not '':
+                    f.write(info_dir + '/' + line + '\n')
+
+                    line_counter += 1
+
+        logger.info("Done Merging")
+        return [line_counter, merged_info_path]
+
+    def create_pos_vec(self, info_path, vec_name, *options):
+        """
+        options available:
+            -num <number_of_samples>
+            -w <sample_width>
+            -h <sample_height>
+
+        :param info_path: descriptor file for all pos images
+        :param vec_name: name of the vector file. will be saved in top_info_dir
+        :param options: optional vars
+        :return:
+        """
+        cmd = 'opencv_createsamples ' + \
+              '-info ' + info_path + ' ' + \
+              '-vec ' + self.top_info_dir + vec_name
+
+        for option in options:
+            cmd = cmd + ' ' + option
+
+        logger.debug("Executing Command: " + cmd)
+        exit_status = os.system(cmd)
+        return exit_status is 0
+
+
+class TrainCascade(object):
+
+    def __init__(self, data_path, vec_path):
+        self.data = data_path
+        self.vec_path = vec_path
