@@ -12,46 +12,14 @@ from utils import Logger
 # INFO - 20
 # DEBUG - 10
 logger = Logger('log\sample_creator')
-logger.set_level(10)
-
-
-def _create_pos_images(img_dir, bg_path, info_path, *options):
-    """
-    options Available:
-        -num <number_of_samples>
-        -bgcolor <background_color>
-        -bgthresh <background_color_threshold>
-        -inv
-        -randinv
-        -maxidev <max_intensity_deviation>
-        -maxxangle <max_x_rotation_angle>
-        -maxyangle <max_y_rotation_angle>
-        -maxzangle <max_z_rotation_angle>
-        -show
-
-    :param img_dir:j
-    :param bg_path:
-    :param info_path:
-    :param options:
-    :return:
-    """
-    cmd = 'opencv_createsamples ' + \
-          '-img ' + img_dir + ' ' + \
-          '-bg ' + bg_path + ' ' + \
-          '-info ' + info_path
-
-    for option in options:
-        cmd = cmd + ' ' + option
-
-    logger.debug("Executing Command: " + cmd)
-    exit_status = os.system(cmd)
-    return exit_status is 0
+logger.set_level(20)
 
 
 class DataRetriever(object):
     """
 
     """
+
     def __init__(self):
         self.clicked = False
         self.start = None
@@ -346,7 +314,40 @@ class PositiveSamples(object):
         self.bg_path = bg_path
         self.top_info_dir = info_dir
 
-    def create_pos_images(self, imgs_dir,  *options):
+    @staticmethod
+    def __create_pos_images(img_dir, bg_path, info_path, *options):
+        """
+        options Available:
+            -num <number_of_samples>
+            -bgcolor <background_color>
+            -bgthresh <background_color_threshold>
+            -inv
+            -randinv
+            -maxidev <max_intensity_deviation>
+            -maxxangle <max_x_rotation_angle>
+            -maxyangle <max_y_rotation_angle>
+            -maxzangle <max_z_rotation_angle>
+            -show
+
+        :param img_dir: images directory
+        :param bg_path: path to background images
+        :param info_path: path to info file
+        :param options: optional args
+        :return:
+        """
+        cmd = 'opencv_createsamples ' + \
+              '-img ' + img_dir + ' ' + \
+              '-bg ' + bg_path + ' ' + \
+              '-info ' + info_path
+
+        for option in options:
+            cmd = cmd + ' ' + option
+
+        logger.debug("Executing Command: " + cmd)
+        exit_status = os.system(cmd)
+        return exit_status is 0
+
+    def create_pos_images(self, imgs_dir, *options):
         """
 
         :param imgs_dir:
@@ -376,7 +377,7 @@ class PositiveSamples(object):
             info_path = self.top_info_dir + '/info_' + str(info_count) + '/info_' + str(info_count) + '.lst'
             logger.debug("Info Path: " + info_path)
 
-            if not _create_pos_images(img_path, self.bg_path, info_path, *options):
+            if not self.__create_pos_images(img_path, self.bg_path, info_path, *options):
                 logger.error("Command Failed for Image: " + img_path)
                 return False
 
@@ -445,33 +446,3 @@ class PositiveSamples(object):
 
         logger.info("Done Merging")
         return [line_counter, merged_info_path]
-
-    def create_pos_vec(self, info_path, vec_name, *options):
-        """
-        options available:
-            -num <number_of_samples>
-            -w <sample_width>
-            -h <sample_height>
-
-        :param info_path: descriptor file for all pos images
-        :param vec_name: name of the vector file. will be saved in top_info_dir
-        :param options: optional vars
-        :return:
-        """
-        cmd = 'opencv_createsamples ' + \
-              '-info ' + info_path + ' ' + \
-              '-vec ' + self.top_info_dir + vec_name
-
-        for option in options:
-            cmd = cmd + ' ' + option
-
-        logger.debug("Executing Command: " + cmd)
-        exit_status = os.system(cmd)
-        return exit_status is 0
-
-
-class TrainCascade(object):
-
-    def __init__(self, data_path, vec_path):
-        self.data = data_path
-        self.vec_path = vec_path
