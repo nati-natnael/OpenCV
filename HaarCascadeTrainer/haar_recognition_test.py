@@ -1,11 +1,11 @@
 import cv2
 
-cascade = 'haarcascade_frontalface_alt.xml'
+cascade = 'cascade.xml'
 face = cv2.CascadeClassifier('haar_cascades/' + cascade)
 
 cap = cv2.VideoCapture(0)
 
-while(True):
+while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
 

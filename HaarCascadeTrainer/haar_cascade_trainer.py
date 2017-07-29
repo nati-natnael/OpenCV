@@ -5,6 +5,7 @@ import numpy as np
 
 from urllib import urlopen, urlretrieve
 from utils import Logger
+from utils import Executor as cmd
 
 # CRITICAL - 50
 # ERROR - 40
@@ -14,22 +15,72 @@ from utils import Logger
 logger = Logger('log\sample_creator')
 logger.set_level(20)
 
+ERROR_TOLERANCE = 20
+
 
 class DataRetriever(object):
-    """
-
-    """
-
     def __init__(self):
         self.clicked = False
         self.start = None
         self.dimension = None
 
+    def prep_imgs(self, imgs_dir, to_dir, img_size, *options):
+        """
+        Prepare images for training.
+        resize and change to grayscale
+
+        :param imgs_dir:
+        :param to_dir:
+        :param img_size:
+        :param options:
+        :return:
+        """
+
+        file_num = 0
+        count = 0
+        error_count = 0
+        how_many = float("inf")
+
+        if len(options) == 1:
+            how_many = options[0]
+
+        if not isinstance(img_size, tuple):
+            raise Exception("Illegal Argument Type: Size")
+
+        images = os.listdir(imgs_dir)
+        for img in images:
+            try:
+                logger.info("Getting: " + img)
+
+                img_from_path = imgs_dir + img
+                img_to_path = to_dir + "IMG_" + str(file_num) + '.jpg'
+
+                img = cv2.imread(img_from_path, cv2.IMREAD_GRAYSCALE)
+
+                if img is not None:
+                    img = cv2.resize(img, img_size)
+                    cv2.imwrite(img_to_path, img)
+                    file_num += 1
+                else:
+                    logger.error("Image Read Failed: " + img_from_path)
+                    continue
+            except Exception as e:
+                logger.error(str(e))
+                error_count += 1
+
+                if error_count > ERROR_TOLERANCE:
+                    raise Exception(str(e))
+
+            count += 1
+            if count >= how_many:
+                break
+
+        logger.info("Done Preparing")
+
     def pull_files_link(*args):
         """
         Download files using the online image links included
-        in img_path 'links'. when downloading images
-        are converted to gray scale and sized to [100,100].
+        in img_path 'links'.
 
         PARAMS IN ORDER
         links: Path containing links of files
@@ -72,17 +123,8 @@ class DataRetriever(object):
                 try:
                     logger.info("Getting: " + link)
 
-                    img_path = dir_path + "img" + str(file_num) + file_type
+                    img_path = dir_path + "IMG_" + str(file_num) + file_type
                     urlretrieve(link, img_path)
-                    img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
-
-                    if img is not None:
-                        img = cv2.resize(img, img_size)
-                        cv2.imwrite(img_path, img)
-                        file_num += 1
-                    else:
-                        logger.error("Image Read Failed: " + link)
-                        continue
                 except Exception as e:
                     logger.error(str(e))
 
@@ -139,17 +181,12 @@ class DataRetriever(object):
         logger.info("Done removing bad images")
 
     @staticmethod
-    def make_descriptor_file(descriptor_path, imgs_dir, rel_path):
+    def make_descriptor_file(descriptor_path, imgs_dir):
         """
-        Make a descriptor txt file. Descriptor file will contain
-        paths of images in imgs_dir directory relative to the descriptor
-        file. the path relation from descriptor to images is described by
-        rel_path. In other words, rel_path is path from descriptor to
-        imgs_dir.
+        Make a descriptor txt file.
 
         :param descriptor_path: path to descriptor file
         :param imgs_dir: path to neg images
-        :param rel_path: relative path of images from descriptor path
         :return: number of images
         """
 
@@ -172,7 +209,7 @@ class DataRetriever(object):
 
         for img in img_lst:
             logger.info('Writing file: ' + imgs_dir + img)
-            f.write(rel_path + img + '\n')
+            f.write(imgs_dir + img + '\n')
             counter += 1
 
         f.close()
@@ -305,49 +342,10 @@ class PositiveSamples(object):
 
     """
 
-    def __init__(self, bg_path, info_dir):
-        """
+    def __init__(self):
+        pass
 
-        :param bg_path:
-        :param info_dir:
-        """
-        self.bg_path = bg_path
-        self.top_info_dir = info_dir
-
-    @staticmethod
-    def __create_pos_images(img_dir, bg_path, info_path, *options):
-        """
-        options Available:
-            -num <number_of_samples>
-            -bgcolor <background_color>
-            -bgthresh <background_color_threshold>
-            -inv
-            -randinv
-            -maxidev <max_intensity_deviation>
-            -maxxangle <max_x_rotation_angle>
-            -maxyangle <max_y_rotation_angle>
-            -maxzangle <max_z_rotation_angle>
-            -show
-
-        :param img_dir: images directory
-        :param bg_path: path to background images
-        :param info_path: path to info file
-        :param options: optional args
-        :return:
-        """
-        cmd = 'opencv_createsamples ' + \
-              '-img ' + img_dir + ' ' + \
-              '-bg ' + bg_path + ' ' + \
-              '-info ' + info_path
-
-        for option in options:
-            cmd = cmd + ' ' + option
-
-        logger.debug("Executing Command: " + cmd)
-        exit_status = os.system(cmd)
-        return exit_status is 0
-
-    def create_pos_images(self, imgs_dir, *options):
+    def create_pos_images(self, imgs_dir, top_info_dir, *options):
         """
 
         :param imgs_dir:
@@ -370,14 +368,18 @@ class PositiveSamples(object):
 
             # make dir for every pos image
             try:
-                os.mkdir(self.top_info_dir + '/info_' + str(info_count))
+                os.mkdir(top_info_dir + '/info_' + str(info_count))
             except OSError:
                 logger.debug("Directory already exists")
 
-            info_path = self.top_info_dir + '/info_' + str(info_count) + '/info_' + str(info_count) + '.lst'
+            info_path = top_info_dir + 'info_' + str(info_count) + '/info_' + str(info_count) + '.lst'
             logger.debug("Info Path: " + info_path)
 
-            if not self.__create_pos_images(img_path, self.bg_path, info_path, *options):
+            executable = 'opencv_createsamples ' + \
+                         '-img ' + img_path + ' ' + \
+                         '-info ' + info_path
+
+            if not cmd.exec_cmd(executable, *options):
                 logger.error("Command Failed for Image: " + img_path)
                 return False
 
@@ -386,7 +388,7 @@ class PositiveSamples(object):
         logger.info("Done creating positive image samples")
         return True
 
-    def merge_samples(self):
+    def merge_samples(self, top_info_dir):
         """
         merge info.lst files in to one.
         <p>
@@ -397,19 +399,19 @@ class PositiveSamples(object):
         """
         logger.info("Running Merger ...")
         merged_info = 'merged_info.lst'
-        merged_info_path = self.top_info_dir + merged_info
+        merged_info_path = top_info_dir + merged_info
 
         line_counter = -1
 
         # remove old merge file if it exists
         try:
-            os.remove(self.top_info_dir + merged_info)
+            os.remove(top_info_dir + merged_info)
             logger.debug("Old merge file deleted")
         except OSError:
             logger.debug("Old merge file not found. Delete not needed :)")
 
         try:
-            info_dir_list = os.listdir(self.top_info_dir)
+            info_dir_list = os.listdir(top_info_dir)
         except OSError as os_e:
             logger.error(str(os_e))
             return [line_counter, merged_info_path]
@@ -424,7 +426,7 @@ class PositiveSamples(object):
             logger.info("Reading: " + info_dir + "...")
 
             # Only one info file per info directory
-            info_path = self.top_info_dir + info_dir + '/' + info_dir + '.lst'
+            info_path = top_info_dir + info_dir + '/' + info_dir + '.lst'
             logger.debug("Info Path: " + info_path)
 
             try:
