@@ -1,6 +1,6 @@
 import cv2
 
-cascade = 'cascade.xml'
+cascade = 'hand_cascade.xml'
 face = cv2.CascadeClassifier('haar_cascades/' + cascade)
 
 cap = cv2.VideoCapture(0)

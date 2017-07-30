@@ -3,14 +3,14 @@ from utils import Executor as cmd
 
 # -------------------------------------- Input Params ---------------------------------------------------
 NEG_SIZE = (400, 400)
-POS_SIZE = (24, 24)
+POS_SIZE = (40, 50)
 
 W, H = POS_SIZE
 STAGES = 10
-NUM_POS = 1000
+NUM_POS = 2000
 NUM_NEG = 1000
 MIN_HIT_RATE = 0.995
-FEATURE_TYPE = 'LBP'
+FEATURE_TYPE = 'HAAR'#'LBP'
 RAM = 2048
 
 POS_RAW = 'haar_cascades/Training/pos/raw_imgs/'
@@ -48,12 +48,14 @@ pos_samp = trainer.PositiveSamples()
 #                                     "-maxyangle 0.5",
 #                                     "-maxzangle 0.5",
 #                                     "-num %d" % neg_num)
-#
+# #
 # img_count, merge_path = pos_samp.merge_samples(POS_DESCRIPTOR_DIR)
-
+#
 # cmd.exec_cmd('opencv_createsamples',
 #              '-info ' + merge_path,
 #              '-vec ' + VEC_PATH,
+#              '-w %d' % W,
+#              '-h %d' % H,
 #              "-num %d" % img_count)
 
 cmd.exec_cmd('opencv_traincascade',
