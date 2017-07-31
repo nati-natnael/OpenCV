@@ -5,7 +5,7 @@ import numpy as np
 
 from urllib import urlopen, urlretrieve
 from utils import Logger
-from utils import Executor as cmd
+from utils import Executor
 
 # CRITICAL - 50
 # ERROR - 40
@@ -24,7 +24,8 @@ class DataRetriever(object):
         self.start = None
         self.dimension = None
 
-    def prep_imgs(self, imgs_dir, to_dir, img_size, *options):
+    @staticmethod
+    def prep_imgs(imgs_dir, to_dir, img_size, *options):
         """
         Prepare images for training.
         resize and change to grayscale
@@ -345,10 +346,12 @@ class PositiveSamples(object):
     def __init__(self):
         pass
 
-    def create_pos_images(self, imgs_dir, top_info_dir, *options):
+    @staticmethod
+    def create_pos_images(imgs_dir, top_info_dir, *options):
         """
 
         :param imgs_dir:
+        :param top_info_dir:
         :param options:
         :return:
         """
@@ -379,7 +382,7 @@ class PositiveSamples(object):
                          '-img ' + img_path + ' ' + \
                          '-info ' + info_path
 
-            if not cmd.exec_cmd(executable, *options):
+            if not Executor.exec_cmd(executable, *options):
                 logger.error("Command Failed for Image: " + img_path)
                 return False
 
@@ -388,7 +391,8 @@ class PositiveSamples(object):
         logger.info("Done creating positive image samples")
         return True
 
-    def merge_samples(self, top_info_dir):
+    @staticmethod
+    def merge_samples(top_info_dir):
         """
         merge info.lst files in to one.
         <p>
