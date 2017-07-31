@@ -1,11 +1,12 @@
 import cv2
 
-cascade = 'hand_cascade.xml'
-face = cv2.CascadeClassifier('haar_cascades/' + cascade)
+cascade_dir = 'C:/Users/uc212807/PycharmProjects/OpenCV/HaarCascadeTrainer/haar_cascades/haarcascade_xml/'
+cascade = 'cascade.xml'
+face = cv2.CascadeClassifier(cascade_dir + cascade)
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('C:/Users/uc212807/Desktop/VIDEO0002.avi')
 
-while True:
+while cap:
     # Capture frame-by-frame
     ret, frame = cap.read()
 

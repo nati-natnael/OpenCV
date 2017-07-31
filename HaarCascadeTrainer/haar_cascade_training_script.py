@@ -2,16 +2,16 @@ import haar_cascade_trainer as trainer
 from utils import Executor as cmd
 
 # -------------------------------------- Input Params ---------------------------------------------------
-NEG_SIZE = (400, 400)
-POS_SIZE = (40, 50)
+NEG_SIZE = (50, 50)
+POS_SIZE = (25, 25)
 
 W, H = POS_SIZE
 STAGES = 10
-NUM_POS = 2000
+NUM_POS = 2800
 NUM_NEG = 1000
 MIN_HIT_RATE = 0.995
 FEATURE_TYPE = 'HAAR'#'LBP'
-RAM = 2048
+RAM = 1024
 
 POS_RAW = 'haar_cascades/Training/pos/raw_imgs/'
 POS_CROPPED = 'haar_cascades/Training/pos/cropped/'
@@ -24,7 +24,7 @@ NEG_DESCRIPTOR_FILE = 'bg.txt'
 BAD_IMGS = 'haar_cascades/bad_imgs/'
 
 VEC_PATH = 'positive.vec'
-DATA_PATH = 'haar_cascades/haarcascades_xml/'
+DATA_PATH = 'haar_cascades/haarcascade_xml/'
 # -------------------------------------- End of Params ---------------------------------------------------
 
 sample = trainer.DataRetriever()
@@ -50,7 +50,7 @@ pos_samp = trainer.PositiveSamples()
 #                                     "-num %d" % neg_num)
 # #
 # img_count, merge_path = pos_samp.merge_samples(POS_DESCRIPTOR_DIR)
-#
+# #
 # cmd.exec_cmd('opencv_createsamples',
 #              '-info ' + merge_path,
 #              '-vec ' + VEC_PATH,
@@ -59,8 +59,8 @@ pos_samp = trainer.PositiveSamples()
 #              "-num %d" % img_count)
 
 cmd.exec_cmd('opencv_traincascade',
-             '-data ' + DATA_PATH,
-             '-vec ' + VEC_PATH,
+             '-data %s' % DATA_PATH,
+             '-vec %s' % VEC_PATH,
              '-bg ' + NEG_DESCRIPTOR_FILE,
              '-numPos %d' % NUM_POS,
              '-numNeg %d' % NUM_NEG,
