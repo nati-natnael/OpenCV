@@ -34,8 +34,8 @@ pos_samp = trainer.PositiveSamples()
 
 # -------------------------------------- Prepare Neg images ----------------------------------------------
 # sample.pull_files_link(NEG_LINK, NEG_RAW, '.jpg', 8827, 1177)
-sample.remove_bad_imgs(NEG_RAW, BAD_IMGS)
-# sample.prep_imgs(NEG_RAW, NEG_READY, NEG_SIZE)
+# sample.remove_bad_imgs(NEG_RAW, BAD_IMGS)
+sample.prep_imgs(NEG_RAW, NEG_READY, NEG_SIZE)
 # neg_num = sample.make_descriptor_file(NEG_DESCRIPTOR_FILE, NEG_READY)
 # --------------------------------------------- End ------------------------------------------------------
 

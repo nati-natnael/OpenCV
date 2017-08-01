@@ -51,7 +51,7 @@ class DataRetriever(object):
         images = os.listdir(imgs_dir)
         for img in images:
             try:
-                logger.info("Getting: " + img)
+                logger.info("Getting Image Number [%d] [%s]" % (count, img))
 
                 img_from_path = imgs_dir + img
                 img_to_path = to_dir + "IMG_" + str(file_num) + '.jpg'
