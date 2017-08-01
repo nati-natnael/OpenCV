@@ -1,2 +1,2 @@
-from logger import Logger
-from execs import Executor
+import logger
+import execs

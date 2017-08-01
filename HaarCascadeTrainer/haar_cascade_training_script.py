@@ -1,5 +1,5 @@
 import haar_cascade_trainer as trainer
-from utils import Executor as cmd
+from utils.execs.cmd_executor import Executor
 
 # -------------------------------------- Input Params ---------------------------------------------------
 NEG_SIZE = (50, 50)
@@ -10,8 +10,10 @@ STAGES = 10
 NUM_POS = 2800
 NUM_NEG = 1000
 MIN_HIT_RATE = 0.995
-FEATURE_TYPE = 'HAAR'#'LBP'
+FEATURE_TYPE = 'HAAR'  # 'LBP'
 RAM = 1024
+
+NEG_LINK = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00007846'
 
 POS_RAW = 'haar_cascades/Training/pos/raw_imgs/'
 POS_CROPPED = 'haar_cascades/Training/pos/cropped/'
@@ -31,6 +33,8 @@ sample = trainer.DataRetriever()
 pos_samp = trainer.PositiveSamples()
 
 # -------------------------------------- Prepare Neg images ----------------------------------------------
+# sample.pull_files_link(NEG_LINK, NEG_RAW, '.jpg', 8827, 1177)
+sample.remove_bad_imgs(NEG_RAW, BAD_IMGS)
 # sample.prep_imgs(NEG_RAW, NEG_READY, NEG_SIZE)
 # neg_num = sample.make_descriptor_file(NEG_DESCRIPTOR_FILE, NEG_READY)
 # --------------------------------------------- End ------------------------------------------------------
@@ -51,23 +55,23 @@ pos_samp = trainer.PositiveSamples()
 # #
 # img_count, merge_path = pos_samp.merge_samples(POS_DESCRIPTOR_DIR)
 # #
-# cmd.exec_cmd('opencv_createsamples',
-#              '-info ' + merge_path,
-#              '-vec ' + VEC_PATH,
-#              '-w %d' % W,
-#              '-h %d' % H,
-#              "-num %d" % img_count)
-
-cmd.exec_cmd('opencv_traincascade',
-             '-data %s' % DATA_PATH,
-             '-vec %s' % VEC_PATH,
-             '-bg ' + NEG_DESCRIPTOR_FILE,
-             '-numPos %d' % NUM_POS,
-             '-numNeg %d' % NUM_NEG,
-             '-numStages %d' % STAGES,
-             'inHitRate %.3f' % MIN_HIT_RATE,
-             '-w %d' % W,
-             '-h %d' % H,
-             '-featureType %s' % FEATURE_TYPE,
-             '-precalcValBufSize %d' % RAM,
-             '-precalcIdxBufSize %d' % RAM)
+# Executor.exec_cmd('opencv_createsamples',
+#                   '-info ' + merge_path,
+#                   '-vec ' + VEC_PATH,
+#                   '-w %d' % W,
+#                   '-h %d' % H,
+#                   "-num %d" % img_count)
+#
+# Executor.exec_cmd('opencv_traincascade',
+#                   '-data %s' % DATA_PATH,
+#                   '-vec %s' % VEC_PATH,
+#                   '-bg ' + NEG_DESCRIPTOR_FILE,
+#                   '-numPos %d' % NUM_POS,
+#                   '-numNeg %d' % NUM_NEG,
+#                   '-numStages %d' % STAGES,
+#                   'inHitRate %.3f' % MIN_HIT_RATE,
+#                   '-w %d' % W,
+#                   '-h %d' % H,
+#                   '-featureType %s' % FEATURE_TYPE,
+#                   '-precalcValBufSize %d' % RAM,
+#                   '-precalcIdxBufSize %d' % RAM)

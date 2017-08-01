@@ -1,5 +1,5 @@
 import os
-from utils.logger import Logger
+from utils.logger.logger import Logger
 
 logger = Logger('log/executor')
 logger.set_level(10)

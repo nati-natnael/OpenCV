@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 
 from urllib import urlopen, urlretrieve
-from utils import Logger
-from utils import Executor
+from utils.logger.logger import Logger
+from utils.execs.cmd_executor import Executor
 
 # CRITICAL - 50
 # ERROR - 40
@@ -81,7 +81,7 @@ class DataRetriever(object):
     def pull_files_link(*args):
         """
         Download files using the online image links included
-        in img_path 'links'.
+        to img_path.
 
         PARAMS IN ORDER
         links: Path containing links of files
@@ -93,7 +93,8 @@ class DataRetriever(object):
         :return: how many pulled
         """
 
-        if len(args) < 6:
+        args_len = len(args)
+        if args_len < 5:
             logger.error("Illegal Argument Count")
             raise Exception("Illegal Argument Count")
 
@@ -101,35 +102,38 @@ class DataRetriever(object):
         dir_path = args[2]
         file_type = args[3]
         file_pos = args[4]
-        img_size = args[5]
-        if not isinstance(img_size, tuple):
-            logger.error("pull_files_link: Illegal Argument Type - Size")
-            raise Exception("Illegal Argument Type: Size")
 
         how_many = float("inf")
+        continue_pull = 0  # where to start pulling
 
-        logger.info("Pulling Files from link: %s" % links)
-        count = 0
+        # optional args
+        if args_len == 6:
+            continue_pull = int(args[5])
 
-        # Parse Args
-        if len(args) == 7:
+        if args_len == 7:
+            continue_pull = int(args[5])
             how_many = int(args[6])
+
+        logger.info("Pulling Files from link [%s] starting from [%d]" % (links, continue_pull))
+        count = 0
 
         try:
             r = urlopen(links).read()
 
             file_num = file_pos
-            links = r.split('\n')
+            links = r.split('\n')[continue_pull:]
             for link in links:
                 try:
-                    logger.info("Getting: " + link)
+                    msg = link.strip('\r').strip('\n')
+                    logger.info("Getting Image at [%d] link [%s]" % (count + continue_pull, msg))
 
                     img_path = dir_path + "IMG_" + str(file_num) + file_type
                     urlretrieve(link, img_path)
+                    count += 1
+                    file_num += 1
                 except Exception as e:
                     logger.error(str(e))
 
-                count += 1
                 if count >= how_many:
                     break
 
@@ -154,30 +158,32 @@ class DataRetriever(object):
         # Images to be tested
         test_img_lst = os.listdir(from_dir)
         for current in test_img_lst:
-            current_path = from_dir + '/' + str(current)
+            logger.info("Looking at Image [%s]" % current)
+            current_path = from_dir + str(current)
 
             # Known Bad images
             bad_img_lst = os.listdir(bad_imgs_dir)
             for bad_img in bad_img_lst:
                 try:
-                    bad_img_path = bad_imgs_dir + '/' + str(bad_img)
+                    bad_img_path = bad_imgs_dir + str(bad_img)
                     cur = cv2.imread(current_path)
                     bad = cv2.imread(bad_img_path)
 
+                    # If cur image is empty
                     try:
                         cur_shape = cur.shape
-                        bad_shape = bad.shape
-
-                        if bad_shape == cur_shape and not (np.bitwise_xor(cur, bad).any()):
-                            logger.debug("Removing ..." + current_path)
-                            os.remove(current_path)
-
                     except AttributeError:
                         logger.error("Removing ..." + current_path)
                         os.remove(current_path)
+                        continue
+
+                    bad_shape = bad.shape
+                    if bad_shape == cur_shape and not (np.bitwise_xor(cur, bad).any()):
+                        logger.debug("Removing ..." + current_path)
+                        os.remove(current_path)
 
                 except Exception as e:
-                    logger.error("Error: " + str(e))
+                    logger.error("Cur Image [%s] Bad Image [%s] Error: [%s]" % (current, bad_img, str(e)))
 
         logger.info("Done removing bad images")
 
