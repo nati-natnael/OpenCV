@@ -2,7 +2,7 @@ import os
 from utils.logger.logger import Logger
 
 logger = Logger('log/executor')
-logger.set_level(10)
+logger.set_level(30)
 
 
 class Executor(object):
