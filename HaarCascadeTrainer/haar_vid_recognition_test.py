@@ -4,7 +4,7 @@ cascade_dir = 'C:/Users/uc212807/PycharmProjects/OpenCV/HaarCascadeTrainer/haar_
 cascade = 'cascade.xml'
 face = cv2.CascadeClassifier(cascade_dir + cascade)
 
-cap = cv2.VideoCapture('C:/Users/uc212807/Desktop/test.mp4')
+cap = cv2.VideoCapture('C:/Users/uc212807/Desktop/test_2.mp4')
 
 while cap.isOpened():
     # Capture frame-by-frame
@@ -12,7 +12,7 @@ while cap.isOpened():
 
     # Our operations on the frame come here
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face.detectMultiScale(gray, 1.3, 40, 1, (25, 25))
+    faces = face.detectMultiScale(gray, 1.3, 30, 1, (25, 25))
     for (x, y, w, h) in faces:
         img = cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
         roi_gray = gray[y:y + h, x:x + w]
