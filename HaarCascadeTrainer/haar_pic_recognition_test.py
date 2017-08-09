@@ -7,7 +7,7 @@ face = cv2.CascadeClassifier(cascade_dir + cascade)
 img = cv2.imread('C:/Users/uc212807/Desktop/test.jpg')
 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-faces = face.detectMultiScale(gray, 1.3, 5)
+faces = face.detectMultiScale(gray, 1.1, 10, 1, (25, 25))
 for (x, y, w, h) in faces:
     img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 

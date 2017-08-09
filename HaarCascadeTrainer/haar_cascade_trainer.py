@@ -48,6 +48,12 @@ class DataRetriever(object):
         if not isinstance(img_size, tuple):
             raise Exception("Illegal Argument Type: Size")
 
+        # Args
+        logger.info("Args")
+        logger.info("Image from Dir: %s" % imgs_dir)
+        logger.info("Image to Dir: %s" % to_dir)
+        logger.info("Image Number: %d" % how_many)
+
         images = os.listdir(imgs_dir)
         for img in images:
             try:
