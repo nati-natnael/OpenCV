@@ -52,7 +52,7 @@ class DataRetriever(object):
         logger.info("Args")
         logger.info("Image from Dir: %s" % imgs_dir)
         logger.info("Image to Dir: %s" % to_dir)
-        logger.info("Image Number: %d" % how_many)
+        logger.info("Image Number: " + str(how_many))
 
         images = os.listdir(imgs_dir)
         for img in images:
