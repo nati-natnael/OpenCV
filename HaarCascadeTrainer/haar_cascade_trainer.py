@@ -383,11 +383,11 @@ class PositiveSamples(object):
 
             # make dir for every pos image
             try:
-                os.mkdir(top_info_dir + '/info_' + str(info_count))
+                os.mkdir(top_info_dir + '\\info_' + str(info_count))
             except OSError:
                 logger.debug("Directory already exists")
 
-            info_path = top_info_dir + 'info_' + str(info_count) + '/info_' + str(info_count) + '.lst'
+            info_path = top_info_dir + 'info_' + str(info_count) + '\\info_' + str(info_count) + '.lst'
             logger.debug("Info Path: " + info_path)
 
             executable = 'opencv_createsamples ' + \
@@ -442,7 +442,7 @@ class PositiveSamples(object):
             logger.info("Reading: " + info_dir + "...")
 
             # Only one info file per info directory
-            info_path = top_info_dir + info_dir + '/' + info_dir + '.lst'
+            info_path = top_info_dir + info_dir + '\\' + info_dir + '.lst'
             logger.debug("Info Path: " + info_path)
 
             try:
@@ -458,7 +458,7 @@ class PositiveSamples(object):
 
             for line in lines:
                 if line is not '':
-                    f.write(info_dir + '/' + line + '\n')
+                    f.write(info_dir + '\\' + line + '\n')
 
                     line_counter += 1
 
