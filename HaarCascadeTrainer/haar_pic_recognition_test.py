@@ -1,6 +1,6 @@
 import cv2
 
-cascade_dir = 'C:/Users/uc212807/PycharmProjects/OpenCV/HaarCascadeTrainer/haar_cascades/haarcascade_xml/'
+cascade_dir = 'C:/Users/Natnael/Documents/GitHub/OpenCV/HaarCascadeTrainer/haar_cascades/haarcascade_xml/'
 cascade = 'cascade.xml'
 face = cv2.CascadeClassifier(cascade_dir + cascade)
 
