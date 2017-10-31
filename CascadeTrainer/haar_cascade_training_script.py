@@ -40,7 +40,7 @@ BAD_IMGS = 'haar_cascades\\bad_imgs\\'
 VEC_PATH = 'positive.vec'
 
 # Destination of final result [trained cascade]
-DATA_PATH = 'haar_cascades\\haarcascade_xml\\'
+DATA_PATH = 'haar_cascades\\cascade_xml\\'
 # -------------------------------------- End of Params ---------------------------------------------------
 
 sample = trainer.DataRetriever()
