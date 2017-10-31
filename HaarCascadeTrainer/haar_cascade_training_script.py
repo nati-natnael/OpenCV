@@ -1,32 +1,55 @@
-import haar_cascade_trainer as trainer
+from trainer import cascade_trainer as trainer
 from utils.execs.cmd_executor import Executor
 
 # -------------------------------------- Input Params ---------------------------------------------------
+# Sizes of images
 NEG_SIZE = (80, 80)
 POS_SIZE = (50, 50)
-
 W, H = POS_SIZE
+
+# Desired cascade stages
 STAGES = 20
+
+# Number of pos and neg images. This can affect the quality of the trained detector
 NUM_POS = 40
 NUM_NEG = 600
+
+# Desired Accuracy
 MIN_HIT_RATE = 0.999
+
+# Type of cascade training
 FEATURE_TYPE = 'HAAR'  # 'LBP'
+
+# Amount of ram designated for training.
 RAM = 1024
 
-NEG_LINK = 'http://image-net.org/api/text/imagenet.synset.geturls?wnid=n00007846'
-
+# ----------- POS Dirs ---------------------------------
+# Original Positive images Dir
 POS_RAW = 'haar_cascades\\Training\\pos\\raw_imgs\\'
-POS_CROPPED = 'haar_cascades\\Training\\pos\\cropped\\'
-POS_READY = 'haar_cascades\\Training\\pos\\ready\\'
-POS_DESCRIPTOR_DIR = 'haar_cascades\\Training\\training_samples\\'
 
+# Cropped Images Dir
+POS_CROPPED = 'haar_cascades\\Training\\pos\\cropped\\'
+
+# Ready Positive Images Dir
+POS_READY = 'haar_cascades\\Training\\pos\\ready\\'
+
+# Descriptor file of positive images
+POS_DESCRIPTOR_DIR = 'haar_cascades\\Training\\training_samples\\'
+# ------------- End of POS --------------------------------
+
+# -------------- Neg Dirs ---------------------------------
 NEG_RAW = 'haar_cascades\\Training\\neg\\raw_imgs\\'
 NEG_READY = 'haar_cascades\\Training\\neg\\ready\\'
 NEG_DESCRIPTOR_FILE = 'bg.txt'
+# ------------ End of Neg Dir ------------------------------
 
+# If bad images need to be filtered. place sample of bad images here.
 BAD_IMGS = 'haar_cascades\\bad_imgs\\'
 
+# Path of positive Vector file
 VEC_PATH = 'positive.vec'
+
+# Destination of final result [trained cascade]
 DATA_PATH = 'haar_cascades\\haarcascade_xml\\'
 # -------------------------------------- End of Params ---------------------------------------------------
 
@@ -34,7 +57,6 @@ sample = trainer.DataRetriever()
 pos_samp = trainer.PositiveSamples()
 
 # -------------------------------------- Prepare Neg images ----------------------------------------------
-# sample.pull_files_link(NEG_LINK, NEG_RAW, '.jpg', 8827, 1177)
 # sample.remove_bad_imgs(NEG_RAW, BAD_IMGS)
 # sample.prep_imgs(NEG_RAW, NEG_READY, NEG_SIZE, NUM_NEG)
 # sample.make_descriptor_file(NEG_DESCRIPTOR_FILE, NEG_READY)
@@ -74,6 +96,9 @@ pos_samp = trainer.PositiveSamples()
 #                   '-maxidev 40',
 #                   "-num %d" % img_count)
 
+"""
+Haar training begins here. using the samples created.
+"""
 Executor.exec_cmd('opencv_traincascade',
                   '-data %s' % DATA_PATH,
                   '-vec %s' % VEC_PATH,
