@@ -1,0 +1,20 @@
+2017-10-31 02:39:33,719: [INFO] Args
+2017-10-31 02:39:33,719: [INFO] Image from Dir: haar_cascades\Training\neg\raw\
+2017-10-31 02:39:33,719: [INFO] Image to Dir: haar_cascades\Training\neg\ready\
+2017-10-31 02:39:33,719: [INFO] Image Number: 600
+2017-10-31 02:39:33,720: [INFO] Getting Image Number [0] [18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg]
+2017-10-31 02:39:34,786: [INFO] Done Preparing
+2017-10-31 02:39:34,786: [INFO] Making descriptor file: bg.txt
+2017-10-31 02:39:34,789: [INFO] Writing file: haar_cascades\Training\neg\ready\IMG_0.jpg
+2017-10-31 02:39:34,799: [INFO] Cropping Images
+2017-10-31 02:39:49,128: [INFO] Next image
+2017-10-31 02:39:49,167: [INFO] Done cropping
+2017-10-31 02:39:49,167: [INFO] Args
+2017-10-31 02:39:49,167: [INFO] Image from Dir: haar_cascades\Training\pos\cropped\
+2017-10-31 02:39:49,167: [INFO] Image to Dir: haar_cascades\Training\pos\ready\
+2017-10-31 02:39:49,183: [INFO] Image Number: inf
+2017-10-31 02:39:49,183: [INFO] Done Preparing
+2017-10-31 02:39:49,183: [INFO] Creating positive samples ...
+2017-10-31 02:39:49,183: [INFO] Done creating positive image samples
+2017-10-31 02:39:49,184: [INFO] Running Merger ...
+2017-10-31 02:39:49,186: [INFO] Done Merging

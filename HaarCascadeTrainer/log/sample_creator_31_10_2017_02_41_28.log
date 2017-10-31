@@ -1,0 +1,8 @@
+2017-10-31 02:41:28,744: [INFO] Args
+2017-10-31 02:41:28,746: [INFO] Image from Dir: haar_cascades\Training\neg\raw\
+2017-10-31 02:41:28,746: [INFO] Image to Dir: haar_cascades\Training\neg\ready\
+2017-10-31 02:41:28,746: [INFO] Image Number: 600
+2017-10-31 02:41:28,747: [INFO] Getting Image Number [0] [18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg]
+2017-10-31 02:41:28,795: [INFO] Done Preparing
+2017-10-31 02:41:28,795: [INFO] Making descriptor file: bg.txt
+2017-10-31 02:41:28,796: [INFO] Writing file: haar_cascades\Training\neg\ready\IMG_0.jpg
