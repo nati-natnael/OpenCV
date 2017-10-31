@@ -1,4 +1,4 @@
-from trainer import cascade_trainer as trainer
+from CascadeTrainer.trainer import cascade_trainer as trainer
 from utils.execs.cmd_executor import Executor
 
 # -------------------------------------- Input Params ---------------------------------------------------
@@ -65,9 +65,7 @@ status = pos_samp.create_pos_images(POS_READY,
                                     '-h %d' % H,
                                     '-bgcolor 255',
                                     '-bgthresh 0',
-                                    '-maxxangle 1.1'
-                                    '-maxyangle 1.1'
-                                    '-maxzangle 0.5'
+                                    '-maxxangle 1.1 -maxyangle 1.1 -maxzangle 0.5'
                                     '-maxidev 40',
                                     "-num %d" % NUM_NEG)
 #
