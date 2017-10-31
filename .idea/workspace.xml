@@ -2,13 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d22047e4-9936-48df-a351-9aac4e3cc7a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/cropped/foam_dart_0_0.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/raw/foam_dart_0.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/ready/IMG_0.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/neg/raw_imgs/18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg" afterPath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/neg/raw/18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/cascadeTest/haar_pic_recognition_test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/cascadeTest/haar_vid_recognition_test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/eye/cascade.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/hand/cascade.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/lego/cascade.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/tennis_ball/cascade.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/neg/raw/18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/neg/ready/IMG_0.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/cropped/foam_dart_0_0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/raw/foam_dart_0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/ready/IMG_0.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/info_0/0001_0007_0005_0051_0051.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/info_0/info_0.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/merged_info.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/executor_31_10_2017_02_39_33.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/executor_31_10_2017_02_41_28.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/executor_31_10_2017_02_41_36.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/place_holder.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/sample_creator_31_10_2017_02_39_33.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/sample_creator_31_10_2017_02_41_28.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/sample_creator_31_10_2017_02_41_36.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/trainer/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/trainer/cascade_trainer.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/file_structure_recommendation.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/cascadeTest/haar_pic_recognition_test.py" afterPath="$PROJECT_DIR$/CascadeTrainer/cascadeTest/haar_pic_recognition_test.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/cascadeTest/haar_vid_recognition_test.py" afterPath="$PROJECT_DIR$/CascadeTrainer/cascadeTest/haar_vid_recognition_test.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascade_training_script.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/eye/cascade.xml" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/haarcascade_xml/eye/cascade.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/hand/cascade.xml" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/haarcascade_xml/hand/cascade.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/lego/cascade.xml" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/haarcascade_xml/lego/cascade.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/haarcascade_xml/tennis_ball/cascade.xml" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/haarcascade_xml/tennis_ball/cascade.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/neg/raw/18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/neg/raw/18766-the-hulk-and-yoda-1366x768-digital-art-wallpaper.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/neg/ready/IMG_0.jpg" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/neg/ready/IMG_0.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/cropped/foam_dart_0_0.png" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/pos/cropped/foam_dart_0_0.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/raw/foam_dart_0.png" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/pos/raw/foam_dart_0.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/ready/IMG_0.jpg" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/pos/ready/IMG_0.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/info_0/0001_0007_0005_0051_0051.jpg" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/training_samples/info_0/0001_0007_0005_0051_0051.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/info_0/info_0.lst" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/training_samples/info_0/info_0.lst" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/merged_info.lst" afterPath="$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/training_samples/merged_info.lst" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/executor_31_10_2017_02_39_33.log" afterPath="$PROJECT_DIR$/CascadeTrainer/log/executor_31_10_2017_02_39_33.log" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/executor_31_10_2017_02_41_28.log" afterPath="$PROJECT_DIR$/CascadeTrainer/log/executor_31_10_2017_02_41_28.log" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/executor_31_10_2017_02_41_36.log" afterPath="$PROJECT_DIR$/CascadeTrainer/log/executor_31_10_2017_02_41_36.log" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/place_holder.txt" afterPath="$PROJECT_DIR$/CascadeTrainer/log/place_holder.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/sample_creator_31_10_2017_02_39_33.log" afterPath="$PROJECT_DIR$/CascadeTrainer/log/sample_creator_31_10_2017_02_39_33.log" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/sample_creator_31_10_2017_02_41_28.log" afterPath="$PROJECT_DIR$/CascadeTrainer/log/sample_creator_31_10_2017_02_41_28.log" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/log/sample_creator_31_10_2017_02_41_36.log" afterPath="$PROJECT_DIR$/CascadeTrainer/log/sample_creator_31_10_2017_02_41_36.log" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/trainer/__init__.py" afterPath="$PROJECT_DIR$/CascadeTrainer/trainer/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/trainer/cascade_trainer.py" afterPath="$PROJECT_DIR$/CascadeTrainer/trainer/cascade_trainer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py" afterPath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/merged_info.lst" afterPath="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/merged_info.lst" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,10 +63,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="haar_cascade_training_script.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py">
+        <entry file="file://$PROJECT_DIR$/CascadeTrainer/haar_cascade_training_script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-221">
-              <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+            <state relative-caret-position="267">
+              <caret line="89" column="53" lean-forward="true" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -31,14 +74,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cascade_trainer.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/trainer/cascade_trainer.py">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="281" column="21" lean-forward="true" selection-start-line="281" selection-start-column="21" selection-end-line="281" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="170">
+              <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,9 +102,9 @@
         <option value="$PROJECT_DIR$/HaarCascadeTrainer/haar_pic_recognition_test.py" />
         <option value="$PROJECT_DIR$/HaarCascadeTrainer/haar_vid_recognition_test.py" />
         <option value="$PROJECT_DIR$/../4131-Homework/server/server.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/HaarCascadeTrainer/trainer/__init__.py" />
         <option value="$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -88,6 +129,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -98,18 +140,18 @@
             <path>
               <item name="OpenCV" type="b2602c69:ProjectViewProjectNode" />
               <item name="OpenCV" type="462c0819:PsiDirectoryNode" />
-              <item name="HaarCascadeTrainer" type="462c0819:PsiDirectoryNode" />
+              <item name="CascadeTrainer" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../4131-Homework/server/server.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -197,18 +239,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38985738" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -237,11 +280,6 @@
           <line>145</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/HaarCascadeTrainer/trainer/cascade_trainer.py</url>
-          <line>274</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -251,6 +289,26 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/haar_cascade_training_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/trainer/cascade_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4777">
+          <caret line="281" column="21" lean-forward="true" selection-start-line="281" selection-start-column="21" selection-end-line="281" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../4131-Homework/server/server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -261,7 +319,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/cascadeTest/haar_vid_recognition_test.py">
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/cascadeTest/haar_vid_recognition_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="48" lean-forward="false" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
@@ -269,7 +327,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/cascadeTest/haar_pic_recognition_test.py">
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/cascadeTest/haar_pic_recognition_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
@@ -286,24 +344,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="21" column="53" lean-forward="true" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-762174762/thread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="110" column="4" lean-forward="false" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="753" column="0" lean-forward="false" selection-start-line="753" selection-start-column="0" selection-end-line="753" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-762174762/thread.py" />
+    <entry file="file://C:/Python27/Lib/threading.py" />
     <entry file="file://$PROJECT_DIR$/../4131-Homework/server/server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -314,35 +359,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/bat_files/opencv_createsamples_cmd.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/bat_files/opencv_createsamples_cmd.bat" />
     <entry file="file://$PROJECT_DIR$/utils/logger/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/trainer/__init__.py">
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/trainer/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -350,9 +378,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -361,38 +386,56 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/haar_cascade_training_script.py">
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/pos/cropped/foam_dart_0_0.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/pos/ready/IMG_0.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/haar_cascades/training/training_samples/info_0/0001_0007_0005_0051_0051.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/trainer/cascade_trainer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+        <state relative-caret-position="221">
+          <caret line="281" column="21" lean-forward="false" selection-start-line="281" selection-start-column="21" selection-end-line="281" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_structure_recommendation.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CascadeTrainer/haar_cascade_training_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="89" column="53" lean-forward="true" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/cropped/foam_dart_0_0.png">
+    <entry file="file://$PROJECT_DIR$/files/images/pos_bank/tennis_ball/tennis_ball.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/pos/ready/IMG_0.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/haar_cascades/training/training_samples/info_0/0001_0007_0005_0051_0051.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HaarCascadeTrainer/trainer/cascade_trainer.py">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="281" column="21" lean-forward="true" selection-start-line="281" selection-start-column="21" selection-end-line="281" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
