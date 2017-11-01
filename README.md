@@ -8,35 +8,35 @@ This framework is designed to make it easier and efficient to train for specific
         OpenCV
 
 # Functionality Descriptions
-    ## DataRetriever
-        ### prep_imgs
-            Resize and grayscale images which required for training.
+## DataRetriever
+	 prep_imgs
+		Resize and grayscale images which required for training.
 
-        ### pull_files_link
-            Pull images from online file that contain links of images.
+	 pull_files_link
+		Pull images from online file that contain links of images.
 
-        ### remove_bad_imgs
-            This function requires a sample of bad images to remove bad images from larger set of images.
+	 remove_bad_imgs
+		This function requires a sample of bad images to remove bad images from larger set of images.
 
-        ### make_descriptor_file
-            Creates a descriptor file with path provided. Descriptor file is relative or absolute path of images. It is
-            used by OpenCV create samples and train.
+	 make_descriptor_file
+		Creates a descriptor file with path provided. Descriptor file is relative or absolute path of images. It is
+		used by OpenCV create samples and train.
 
-        ### img_crop_helper
-            Crop helper opens images from provided directory one by one in a window and marker to for drawing crop area.
-            After desired crop area is selected, hit key 's' on the keyboard to save image and hit space bar to continue
-            to next image. Multiple crops can be done on one image.
+	 img_crop_helper
+		Crop helper opens images from provided directory one by one in a window and marker to for drawing crop area.
+		After desired crop area is selected, hit key 's' on the keyboard to save image and hit space bar to continue
+		to next image. Multiple crops can be done on one image.
 
-    ## PositiveSamples
-        ### create_pos_images
-            For each positive image in provided directory, creates samples of positive image superimposed on all negative
-            images using opencv_createsamples. Each positive samples will have their own directory with dedicated
-            descriptor files.
+## PositiveSamples
+	 create_pos_images
+		For each positive image in provided directory, creates samples of positive image superimposed on all negative
+		images using opencv_createsamples. Each positive samples will have their own directory with dedicated
+		descriptor files.
 
-        ### merge_samples
-            When working with more than one positive image and use them as training sample, It is necessary to have
-            one descriptor file for all samples. This util merges all descriptor files for each positive image into
-            one descriptor file.
+	 merge_samples
+		When working with more than one positive image and use them as training sample, It is necessary to have
+		one descriptor file for all samples. This util merges all descriptor files for each positive image into
+		one descriptor file.
 
 
 # Recommendations
