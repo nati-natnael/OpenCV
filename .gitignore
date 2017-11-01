@@ -1,9 +1,14 @@
 
 .idea
 .idea/workspace.xml
+
 *.log
+
 *.jpg
+
 *.png
-*.png
+
 *.pyc
+
 *.lst
+.idea/workspace.xml
