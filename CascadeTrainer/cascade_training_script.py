@@ -1,11 +1,12 @@
-from CascadeTrainer.trainer import cascade_trainer as trainer
+from trainer import cascade_trainer as trainer
 from utils.execs.cmd_executor import Executor
 
 # -------------------------------------- Input Params ---------------------------------------------------
 # Sizes of images. Pos images need to fit inside of negative images.
+# The bigger the image the longer it takes to train.
 NEG_SIZE = (80, 80)
 POS_SIZE = (50, 50)
-W, H = POS_SIZE
+W, H = POS_SIZE  # Width and Height of pos image
 
 STAGES = 20  # Desired cascade stages
 
@@ -24,12 +25,12 @@ RAM = 1024  # Amount of ram designated for training.
 POS_RAW = 'haar_cascades\\Training\\pos\\raw\\'                     # Original Positive images Dir
 POS_CROPPED = 'haar_cascades\\Training\\pos\\cropped\\'             # Cropped Images Dir
 POS_READY = 'haar_cascades\\Training\\pos\\ready\\'                 # Ready Positive Images Dir
-POS_DESCRIPTOR_DIR = 'haar_cascades\\Training\\training_samples\\'  # Descriptor file of positive images
+POS_DESCRIPTOR_DIR = 'haar_cascades\\training\\training_samples\\'  # Descriptor file of positive images
 # ------------- End of POS --------------------------------
 
 # -------------- Neg Dirs ---------------------------------
-NEG_RAW = 'haar_cascades\\Training\\neg\\raw\\'
-NEG_READY = 'haar_cascades\\Training\\neg\\ready\\'
+NEG_RAW = 'haar_cascades\\training\\neg\\raw\\'
+NEG_READY = 'haar_cascades\\training\\neg\\ready\\'
 NEG_DESCRIPTOR_FILE = 'bg.txt'
 # ------------ End of Neg Dir ------------------------------
 
