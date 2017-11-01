@@ -12,3 +12,8 @@
 
 *.lst
 .idea/workspace.xml
+*.png
+*.txt
+*.png
+*.vec
+*.pyc

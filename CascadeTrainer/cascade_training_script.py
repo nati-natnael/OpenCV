@@ -54,7 +54,7 @@ sample.make_descriptor_file(NEG_DESCRIPTOR_FILE, NEG_READY)
 # --------------------------------------------- End ------------------------------------------------------
 
 # -------------------------------------- Prepare Pos images ----------------------------------------------
-sample.img_crop_helper(POS_RAW, POS_CROPPED)        # helps for cropping pos images
+# sample.img_crop_helper(POS_RAW, POS_CROPPED)        # helps for cropping pos images
 sample.prep_imgs(POS_CROPPED, POS_READY, POS_SIZE)
 # --------------------------------------------- End ------------------------------------------------------
 
@@ -69,7 +69,7 @@ status = pos_samp.create_pos_images(POS_READY,
                                     '-maxxangle 1.1 -maxyangle 1.1 -maxzangle 0.5'
                                     '-maxidev 40',
                                     "-num %d" % NUM_NEG)
-#
+
 img_count, merge_path = pos_samp.merge_samples(POS_DESCRIPTOR_DIR)
 
 Executor.exec_cmd('opencv_createsamples',
