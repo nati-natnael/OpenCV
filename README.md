@@ -8,7 +8,7 @@ This framework is designed to make it easier and efficient to train for specific
         OpenCV
 
 # Functionality Descriptions
-    ## DataRetriever
+## DataRetriever
         ### prep_imgs
             Resize and grayscale images which required for training.
 
